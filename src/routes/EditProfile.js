@@ -1,4 +1,10 @@
 import React from "react";
 
-const EditProfile = ()=> <span>EditProfile</span>;
+const EditProfile = ()=> {
+    return (
+        <div>
+            <h1>EditProfile</h1>
+        </div>
+    );
+}
 export default EditProfile;
