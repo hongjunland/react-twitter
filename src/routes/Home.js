@@ -1,5 +1,7 @@
 import Tweet from "components/Tweet";
-import { dbService } from "fbase";
+import { dbService , storageService} from "fbase";
+import {ref, uploadString} from "firebase/storage";
+import {v4 as uuidv4} from 'uuid';
 import { collection , addDoc, getDocs, onSnapshot, query} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 
@@ -30,11 +32,16 @@ const Home = ({userObj})=>{
     },[])
     const onSubmit = async (event)=>{
         event.preventDefault();
-        await addDoc(collection(dbService,"tweets"),{
-            text: tweet,
-            createdAt: Date.now(),
-            creatorId: userObj.uid,
+        const storageRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
+        const response = await uploadString(storageRef, "data_url").then((snapshot)=>{
+            console.log("Uploaded a blob or file!");
         });
+        storageService.ref().child();
+        // await addDoc(collection(dbService,"tweets"),{
+        //     text: tweet,
+        //     createdAt: Date.now(),
+        //     creatorId: userObj.uid,
+        // });
         setTweet("");
     };
     const onChanage = (event) => {
@@ -50,7 +57,6 @@ const Home = ({userObj})=>{
             onImageChange(finishedEvent);
         };
         reader.readAsDataURL(newFile);
-        onImageChange()
     };
     const onImageChange = (event)=>{
         const {target:{result}} = event;

@@ -15,4 +15,4 @@ const firebaseConfig = {
 export const fibaseInstance = initializeApp(firebaseConfig);
 export const authService = getAuth();
 export const dbService = getFirestore();
-// export const storageBucket = getStorage(firebaseConfig);
+export const storageService = getStorage(fibaseInstance);
