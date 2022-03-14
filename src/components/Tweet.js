@@ -5,6 +5,7 @@ import React, { useState } from "react";
 const Tweet = ({ tweetObj, isOwner }) => {
   const [editing, setEditing] = useState(false);
   const [newTweet, setNewTweet] = useState(tweetObj.text);
+  const [attachmentUrl, setAttachmentUrl] = useState(tweetObj.attachmentUrl);
   const onDeleteClick = async () => {
     const ok = window.confirm("Are you sure you want to delete this tweet?");
     if (ok) {
@@ -49,6 +50,7 @@ const Tweet = ({ tweetObj, isOwner }) => {
       ) : (
         <>
           <h4>{tweetObj.text}</h4>
+          {attachmentUrl && <img src={attachmentUrl} width="50px" height="50px" /> }
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>Delete Tweet</button>
